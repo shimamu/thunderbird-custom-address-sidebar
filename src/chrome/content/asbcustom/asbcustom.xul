@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE page [
+<!ENTITY % abResultsPaneOverlayDTD SYSTEM "chrome://messenger/locale/addressbook/abResultsPaneOverlay.dtd" >
+%abResultsPaneOverlayDTD;
+<!ENTITY % asbcustomOptionDTD SYSTEM "chrome://asbcustom/locale/options.dtd" >
+%asbcustomOptionDTD;
+]>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript">
+      var gLocalString = {
+        GeneratedName  : "&GeneratedName.label;",
+        PrimaryEmail   : "&PrimaryEmail.label;",
+        _AimScreenName : "&ChatName.label;",
+        Company        : "&Company.label;",
+        NickName       : "&NickName.label;",
+        SecondEmail    : "&SecondEmail.label;",
+        Department     : "&Department.label;",
+        JobTitle       : "&JobTitle.label;",
+        CellularNumber : "&CellularNumber.label;",
+        PagerNumber    : "&PagerNumber.label;",
+        FaxNumber      : "&FaxNumber.label;",
+        HomePhone      : "&HomePhone.label;",
+        WorkPhone      : "&WorkPhone.label;"
+      };
+  </script>
+  <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+  <script type="application/x-javascript" src="asbcustom.js"/>
+  <script type="application/x-javascript" src="input_helper.js"/>
+  
+  <menulist id="addressbookList" oncommand="AddressBookMenuListChange_2nd();"/>
+  
+  <textbox id="peopleSearchInput" oncommand="onEnterInSearchBar_2nd();" emptytext="&asbcustom.searchInputEmpty.label;">
+    <button popup="_child" type="menu" id="asbcustom-input-helper-button"
+     style="-moz-binding: url('chrome://asbcustom/content/input_helper.xml#asbcustom_input_helper');">
+      <menupopup onpopupshowing="load_search_input_menu(this);"/>
+    </button>
+  </textbox>
+</overlay>
