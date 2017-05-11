@@ -35,7 +35,7 @@ function initCustom() {
   var treecols = tree.childNodes[0];
   addField(treecols);
   
-  nsPreferences.setUnicharPref("ldap_2.servers.default.attrmap.Department", "ou,department,departmentnumber,orgunit");
+  customPrefs.setUnicharPref("ldap_2.servers.default.attrmap.Department", "ou,department,departmentnumber,orgunit");
 }
 
 function addField(treecols) {
@@ -167,7 +167,7 @@ function loadSearchRange() {
   );
   
   for (var i = 0; i < fieldPrefName.length; i++) {
-    gSearchRange[i]   = nsPreferences.getBoolPref(fieldPrefName[i], true);
+    gSearchRange[i]   = customPrefs.getBoolPref(fieldPrefName[i], true);
   }
 }
 

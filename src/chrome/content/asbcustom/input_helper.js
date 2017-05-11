@@ -13,9 +13,9 @@ function load_search_input_menu(menupopup) {
   }
 
   var keywords = new Array();
-  var keywords_num = nsPreferences.getIntPref("asbcustom_input_helper.searchWord.num", 0);
+  var keywords_num = customPrefs.getIntPref("asbcustom_input_helper.searchWord.num", 0);
   for (var i = 0; i < keywords_num; i++) {
-    var prefvalue = nsPreferences.copyUnicharPref("asbcustom_input_helper.searchWord" + i);
+    var prefvalue = customPrefs.copyUnicharPref("asbcustom_input_helper.searchWord" + i);
     if (prefvalue != "")
       keywords.push(prefvalue);
   }

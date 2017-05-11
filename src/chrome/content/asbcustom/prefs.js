@@ -57,13 +57,13 @@
     switch (preftype)
     {
       case "bool":
-        prefvalue = nsPreferences.getBoolPref(prefstring, prefdefval);
+        prefvalue = customPrefs.getBoolPref(prefstring, prefdefval);
         break;
       case "int":
-        prefvalue = nsPreferences.getIntPref(prefstring, prefdefval);
+        prefvalue = customPrefs.getIntPref(prefstring, prefdefval);
         break;
       default:
-        prefvalue = nsPreferences.copyUnicharPref(prefstring, prefdefval);
+        prefvalue = customPrefs.copyUnicharPref(prefstring, prefdefval);
         break;
     }
     if (elt == "radiogroup")
@@ -103,13 +103,13 @@ function savePrefs()
     switch (preftype)
     {
       case "bool":
-        nsPreferences.setBoolPref(prefstring, prefvalue);
+        customPrefs.setBoolPref(prefstring, prefvalue);
         break;
       case "int":
-        nsPreferences.setIntPref(prefstring, prefvalue);
+        customPrefs.setIntPref(prefstring, prefvalue);
         break;
       default:
-        nsPreferences.setUnicharPref(prefstring, prefvalue);
+        customPrefs.setUnicharPref(prefstring, prefvalue);
         break;
     }
   }

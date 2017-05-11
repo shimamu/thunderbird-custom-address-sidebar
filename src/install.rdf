@@ -7,15 +7,15 @@
     <em:id>asbcustom@gmail.com</em:id>
     <em:type>2</em:type>
     <em:name>Custom Address Sidebar</em:name>
-    <em:version>1.1</em:version>
+    <em:version>1.1.2</em:version>
     <em:description>Allow you to help address sidebar more useful.</em:description>
-    <em:creator>arumamis</em:creator>
-    <em:homepageURL>http://d.hatena.ne.jp/arumamis/</em:homepageURL>
+    <em:creator>shimamu</em:creator>
+    <em:homepageURL>http://github.com/shimamu</em:homepageURL>
     <em:targetApplication>
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        <em:minVersion>15.0</em:minVersion>
-        <em:maxVersion>15.*</em:maxVersion>
+        <em:minVersion>52.0</em:minVersion>
+        <em:maxVersion>52.*</em:maxVersion>
       </Description>
     </em:targetApplication>
     <em:optionsURL>chrome://asbcustom/content/options.xul</em:optionsURL>

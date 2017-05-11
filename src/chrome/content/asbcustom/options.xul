@@ -24,6 +24,7 @@
   </stringbundleset>
 
   <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+  <script type="application/x-javascript" src="chrome://asbcustom/content/customPrefs.js"/>
   <script type="application/x-javascript" src="chrome://asbcustom/content/prefs.js"/>
   <script type="application/x-javascript" src="chrome://asbcustom/content/options.js"/>
 

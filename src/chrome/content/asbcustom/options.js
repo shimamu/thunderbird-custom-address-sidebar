@@ -4,7 +4,7 @@ function init() {
   var p_hbox = document.getElementById("search_word_boxs");
   
   var keywords_num = 20;
-  nsPreferences.setIntPref("asbcustom_input_helper.searchWord.num", keywords_num);
+  customPrefs.setIntPref("asbcustom_input_helper.searchWord.num", keywords_num);
 
   var vbox;
   for (var i = 0; i < keywords_num; i++) {

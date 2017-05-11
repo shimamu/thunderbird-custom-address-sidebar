@@ -25,6 +25,7 @@
       };
   </script>
   <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+  <script type="application/x-javascript" src="customPrefs.js"/>
   <script type="application/x-javascript" src="asbcustom.js"/>
   <script type="application/x-javascript" src="input_helper.js"/>
   
