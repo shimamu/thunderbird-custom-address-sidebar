@@ -1,35 +1,38 @@
 (function() {
-    function init() {
-        var p_hbox = document.getElementById("search_word_boxs");
+	var project = com.namespace("com.github.shimamu.asbcustom.options");
 
-        var keywords_num = 20;
-        asbcustom.customPrefs.setIntPref("asbcustom_input_helper.searchWord.num", keywords_num);
+	function init() {
+		var p_hbox = document.getElementById("search_word_boxs");
 
-        var vbox;
-        for (var i = 0; i < keywords_num; i++) {
-            if (i % 10 == 0) {
-                vbox = document.createElement("vbox");
-                p_hbox.appendChild(vbox);
-            }
-            var hbox = document.createElement("hbox");
-            hbox.setAttribute("align", "right");
-            hbox.setAttribute("class", "indent");
+		var keywords_num = 20;
+		com.github.shimamu.asbcustom.customPrefs.prefs.setIntPref(
+			"asbcustom_input_helper.searchWord.num", keywords_num);
 
-            var label = document.createElement("label");
-            label.setAttribute("value", (i + 1) + ".");
+		var vbox;
+		for (var i = 0; i < keywords_num; i++) {
+			if (i % 10 == 0) {
+				vbox = document.createElement("vbox");
+				p_hbox.appendChild(vbox);
+			}
+			var hbox = document.createElement("hbox");
+			hbox.setAttribute("align", "right");
+			hbox.setAttribute("class", "indent");
 
-            var textbox = document.createElement("textbox");
-            textbox.setAttribute("id", "searchWord0" + i);
-            textbox.setAttribute("size", "30");
-            textbox.setAttribute("prefstring", "asbcustom_input_helper.searchWord" + i);
+			var label = document.createElement("label");
+			label.setAttribute("value", (i + 1) + ".");
 
-            hbox.appendChild(label);
-            hbox.appendChild(textbox);
-            vbox.appendChild(hbox);
-        }
+			var textbox = document.createElement("textbox");
+			textbox.setAttribute("id", "searchWord0" + i);
+			textbox.setAttribute("size", "30");
+			textbox.setAttribute("prefstring", "asbcustom_input_helper.searchWord" + i);
 
-        asbcustom.initPrefs();
-    }
+			hbox.appendChild(label);
+			hbox.appendChild(textbox);
+			vbox.appendChild(hbox);
+		}
 
-    asbcustom.init = init;
+		com.github.shimamu.asbcustom.prefs.initPrefs();
+	}
+
+	project.init = init;
 }());

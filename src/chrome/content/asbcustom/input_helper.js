@@ -1,38 +1,85 @@
 (function() {
-    function asbcustomInputHelperCommand() {
-        var peopleSearchInput = document.getElementById("peopleSearchInput");
-        peopleSearchInput.value = this.label + " ";
-        peopleSearchInput.focus();
-        //gContentChanged=true;
-        //SetComposeWindowTitle();
-    }
+	var project = com.namespace("com.github.shimamu.asbcustom.input_helper");
 
-    function load_search_input_menu(menupopup) {
-        //if (0 < menupopup.childNodes.length)
-        while(menupopup.firstChild){
-            menupopup.removeChild(menupopup.firstChild);
-        }
+	function inputHelperCommand() {
+		var peopleSearchInput = document.getElementById("peopleSearchInput");
+		peopleSearchInput.value = this.label + " ";
+		peopleSearchInput.focus();
+		//gContentChanged=true;
+		//SetComposeWindowTitle();
+	}
 
-        var keywords = new Array();
-        var keywords_num = asbcustom.customPrefs.getIntPref("asbcustom_input_helper.searchWord.num", 0);
-        for (var i = 0; i < keywords_num; i++) {
-            var prefvalue = asbcustom.customPrefs.copyUnicharPref("asbcustom_input_helper.searchWord" + i);
-            if (prefvalue != "")
-                keywords.push(prefvalue);
-        }
+	var Keyword = {
+		create(index) {
+			var keyword = Object.create(Keyword.prototype);
+			keyword.index = index;
+			var value = com.github.shimamu.asbcustom.customPrefs.prefs.copyUnicharPref(
+				"asbcustom_input_helper.searchWord" + index);
+			keyword.value = value;
+			return keyword;
+		},
+		prototype: {
+			isBlank() {
+				return (this.value == "");
+			},
+			build(out) {
+				out.put(this.value);
+			}
+		}
+	}
 
-        //var keywords = new Array("Ｆ営１", "ＦＩ１");
+	var Keywords = {
+		create(element) {
+			var keywords = Object.create(Keywords.prototype);
+			keywords.element = element;
+			keywords.list = [];
+			return keywords;
+		},
+		length() {
+			var num = com.github.shimamu.asbcustom.customPrefs.prefs.getIntPref(
+				"asbcustom_input_helper.searchWord.num", 0);
+			return num;
+		},
+		prototype: {
+			clearElement() {
+				while (this.element.firstChild) {
+					this.element.removeChild(this.element.firstChild);
+				}
+			},
+			load() {
+				var keyLen = Keywords.length();
+				for (var i = 0; i < keyLen; i++) {
+					var keyword = Keyword.create(i);
+					if (!keyword.isBlank()) {
+						this.list.push(keyword);
+					}
+				}
+			},
+			resetElement() {
+				this.clearElement();
+				this.load();
 
-        for (var i = 0; i < keywords.length; i++) {
-            var menuitem = document.createElement("menuitem");
-            menuitem.setAttribute("label", keywords[i]);
-            menuitem.addEventListener("command", asbcustomInputHelperCommand, false)
+				var menupopup = this.element;
+				this.list.forEach(function(keyword) {
+					var menuitem = document.createElement("menuitem");
+					var out = {
+						put(value) {
+							menuitem.setAttribute("label", value);
+							menuitem.addEventListener("command", inputHelperCommand, false)
+							menupopup.appendChild(menuitem);
+						}
+					}
+					keyword.build(out);
+				});
 
-            menupopup.appendChild(menuitem);
-        }
+			}
+		}
+	}
 
-    }
+	function loadMenu(menupopup) {
+		var keywords = Keywords.create(menupopup);
+		keywords.resetElement();
+	}
 
-    asbcustom.asbcustomInputHelperCommand = asbcustomInputHelperCommand;
-    asbcustom.load_search_input_menu = load_search_input_menu;
+	project.loadMenu = loadMenu;
 }());

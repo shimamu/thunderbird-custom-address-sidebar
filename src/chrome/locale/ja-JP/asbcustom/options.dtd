@@ -4,3 +4,6 @@
 <!ENTITY asbcustom.searchInputEmpty.label "検索キーワードの入力または選択">
 <!ENTITY asbcustom.searchWord.label "検索キーワードの登録">
 <!ENTITY asbcustom.searchTab.label "検索">
+<!ENTITY asbcustom.addressbookpain.label "アドレスペイン">
+<!ENTITY asbcustom.addressbook.label "アドレス帳:">
+<!ENTITY asbcustom.searchInput.label "連絡先を検索:">

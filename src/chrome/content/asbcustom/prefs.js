@@ -34,118 +34,123 @@
  *
  * ***** END LICENSE BLOCK ***** */
 (function() {
-    function initPrefs() {
-        var prefElements = document.getElementsByAttribute("prefstring", "*");
-        for (var i = 0; i < prefElements.length; i++ ) {
-            var prefstring    = prefElements[i].getAttribute( "prefstring" );
-            var prefid        = prefElements[i].getAttribute( "id" );
-            var preftype      = prefElements[i].getAttribute( "preftype" );
-            var prefdefval    = prefElements[i].getAttribute( "prefdefval" );
-            var prefattribute = prefElements[i].getAttribute( "prefattribute" );
-            var elt           = prefElements[i].localName;
+	var project = com.namespace("com.github.shimamu.asbcustom.prefs");
 
-            if (!preftype) {
-                preftype = getPreftype(elt);
-            }
-            if (preftype == "int") {
-                prefdefval = parseInt(prefdefval, 10);
-            }
-            if (!prefattribute) {
-                prefattribute = getPrefattribute(elt);
-            }
+	function initPrefs() {
+		var prefElements = document.getElementsByAttribute("prefstring", "*");
+		for (var i = 0; i < prefElements.length; i++ ) {
+			var prefstring    = prefElements[i].getAttribute( "prefstring" );
+			var prefid        = prefElements[i].getAttribute( "id" );
+			var preftype      = prefElements[i].getAttribute( "preftype" );
+			var prefdefval    = prefElements[i].getAttribute( "prefdefval" );
+			var prefattribute = prefElements[i].getAttribute( "prefattribute" );
+			var elt           = prefElements[i].localName;
 
-            var prefvalue;
-            switch (preftype) {
-            case "bool":
-                prefvalue = asbcustom.customPrefs.getBoolPref(prefstring, prefdefval);
-                break;
-            case "int":
-                prefvalue = asbcustom.customPrefs.getIntPref(prefstring, prefdefval);
-                break;
-            default:
-                prefvalue = asbcustom.customPrefs.copyUnicharPref(prefstring, prefdefval);
-                break;
-            }
-            if (elt == "radiogroup") {
-                document.getElementById(prefid).selectedIndex = prefvalue
-            } else {
-                prefElements[i].setAttribute(prefattribute, prefvalue);
-            }
-        }
-    }
+			if (!preftype) {
+				preftype = getPreftype(elt);
+			}
+			if (preftype == "int") {
+				prefdefval = parseInt(prefdefval, 10);
+			}
+			if (!prefattribute) {
+				prefattribute = getPrefattribute(elt);
+			}
 
-    function savePrefs() {
-        var prefElements = document.getElementsByAttribute("prefstring", "*");
-        for (var i = 0; i < prefElements.length; i++ ) {
-            var prefstring    = prefElements[i].getAttribute( "prefstring" );
-            var prefid        = prefElements[i].getAttribute( "id" );
-            var preftype      = prefElements[i].getAttribute( "preftype" );
-            var prefattribute = prefElements[i].getAttribute( "prefattribute" );
-            var elt           = prefElements[i].localName;
+			var prefvalue;
+			switch (preftype) {
+				case "bool":
+					prefvalue = com.github.shimamu.asbcustom.customPrefs.prefs.getBoolPref(
+					prefstring, prefdefval);
+				break;
+				case "int":
+					prefvalue = com.github.shimamu.asbcustom.customPrefs.prefs.getIntPref(
+					prefstring, prefdefval);
+				break;
+				default:
+					prefvalue = com.github.shimamu.asbcustom.customPrefs.prefs.copyUnicharPref(
+					prefstring, prefdefval);
+				break;
+			}
+			if (elt == "radiogroup") {
+				document.getElementById(prefid).selectedIndex = prefvalue
+			} else {
+				prefElements[i].setAttribute(prefattribute, prefvalue);
+			}
+		}
+	}
 
-            if (!preftype) {
-                preftype = getPreftype(elt);
-            }
-            if (!prefattribute) {
-                prefattribute = getPrefattribute(elt);
-            }
+	function savePrefs() {
+		var prefElements = document.getElementsByAttribute("prefstring", "*");
+		for (var i = 0; i < prefElements.length; i++ ) {
+			var prefstring    = prefElements[i].getAttribute( "prefstring" );
+			var prefid        = prefElements[i].getAttribute( "id" );
+			var preftype      = prefElements[i].getAttribute( "preftype" );
+			var prefattribute = prefElements[i].getAttribute( "prefattribute" );
+			var elt           = prefElements[i].localName;
 
-            if (elt == "radiogroup") {
-                var prefvalue = document.getElementById(prefid).selectedIndex;
-            } else if (elt == "textbox") {
-                var prefvalue = document.getElementById(prefid).value;
-            } else {
-                var prefvalue = prefElements[i].getAttribute(prefattribute);
-            }
+			if (!preftype) {
+				preftype = getPreftype(elt);
+			}
+			if (!prefattribute) {
+				prefattribute = getPrefattribute(elt);
+			}
 
-            if (preftype == "bool") {
-                prefvalue = prefvalue == "true" ? true : false;
-            }
+			if (elt == "radiogroup") {
+				var prefvalue = document.getElementById(prefid).selectedIndex;
+			} else if (elt == "textbox") {
+				var prefvalue = document.getElementById(prefid).value;
+			} else {
+				var prefvalue = prefElements[i].getAttribute(prefattribute);
+			}
 
-            switch (preftype) {
-            case "bool":
-                asbcustom.customPrefs.setBoolPref(prefstring, prefvalue);
-                break;
-            case "int":
-                asbcustom.customPrefs.setIntPref(prefstring, prefvalue);
-                break;
-            default:
-                asbcustom.customPrefs.setUnicharPref(prefstring, prefvalue);
-                break;
-            }
-        }
-    }
+			if (preftype == "bool") {
+				prefvalue = prefvalue == "true" ? true : false;
+			}
 
-    function getPreftype(elem) {
-        var result = "";
+			switch (preftype) {
+				case "bool":
+					com.github.shimamu.asbcustom.customPrefs.prefs.setBoolPref(prefstring, prefvalue);
+				break;
+				case "int":
+					com.github.shimamu.asbcustom.customPrefs.prefs.setIntPref(prefstring, prefvalue);
+				break;
+				default:
+					com.github.shimamu.asbcustom.customPrefs.prefs.setUnicharPref(prefstring, prefvalue);
+				break;
+			}
+		}
+	}
 
-        if (elem == "textbox") {
-            result = "string";
-        } else if (elem == "checkbox" || elem == "listitem" || elem == "button") {
-            result = "bool";
-        } else if (elem == "radiogroup" || elem == "menulist") {
-            result = "int";
-        }
+	function getPreftype(elem) {
+		var result = "";
 
-        return result;
-    }
+		if (elem == "textbox") {
+			result = "string";
+		} else if (elem == "checkbox" || elem == "listitem" || elem == "button") {
+			result = "bool";
+		} else if (elem == "radiogroup" || elem == "menulist") {
+			result = "int";
+		}
 
-    function getPrefattribute(elem) {
-        var result = "";
+		return result;
+	}
 
-        if (elem == "radiogroup") {
-            result = "selectedIndex";
-        } else if (elem == "textbox" || elem == "menulist") {
-            result = "value";
-        } else if (elem == "checkbox" || elem == "listitem") {
-            result = "checked";
-        } else if (elem == "button") {
-            result = "disabled";
-        }
+	function getPrefattribute(elem) {
+		var result = "";
 
-        return result;
-    }
+		if (elem == "radiogroup") {
+			result = "selectedIndex";
+		} else if (elem == "textbox" || elem == "menulist") {
+			result = "value";
+		} else if (elem == "checkbox" || elem == "listitem") {
+			result = "checked";
+		} else if (elem == "button") {
+			result = "disabled";
+		}
 
-    asbcustom.initPrefs = initPrefs;
-    asbcustom.savePrefs = savePrefs;
+		return result;
+	}
+
+	project.initPrefs = initPrefs;
+	project.savePrefs = savePrefs;
 }());
