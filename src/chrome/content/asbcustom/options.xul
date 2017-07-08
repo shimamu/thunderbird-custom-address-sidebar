@@ -13,9 +13,9 @@
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="asbcustom_dialog"
         style="max-width: 60em;"
-        onload="init();"
+        onload="asbcustom.init();"
         buttons="accept,cancel"
-        ondialogaccept="savePrefs();"
+        ondialogaccept="asbcustom.savePrefs();"
         persist="screenX screenY"
         title="&asbcustom.title.label;">
 
@@ -24,6 +24,7 @@
   </stringbundleset>
 
   <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+  <script type="application/x-javascript" src="chrome://asbcustom/content/namespace.js"/>
   <script type="application/x-javascript" src="chrome://asbcustom/content/customPrefs.js"/>
   <script type="application/x-javascript" src="chrome://asbcustom/content/prefs.js"/>
   <script type="application/x-javascript" src="chrome://asbcustom/content/options.js"/>

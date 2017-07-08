@@ -33,115 +33,119 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
+(function() {
+    function initPrefs() {
+        var prefElements = document.getElementsByAttribute("prefstring", "*");
+        for (var i = 0; i < prefElements.length; i++ ) {
+            var prefstring    = prefElements[i].getAttribute( "prefstring" );
+            var prefid        = prefElements[i].getAttribute( "id" );
+            var preftype      = prefElements[i].getAttribute( "preftype" );
+            var prefdefval    = prefElements[i].getAttribute( "prefdefval" );
+            var prefattribute = prefElements[i].getAttribute( "prefattribute" );
+            var elt           = prefElements[i].localName;
 
- function initPrefs()
-{
-  var prefElements = document.getElementsByAttribute("prefstring", "*");
-  for (var i=0; i<prefElements.length; i++ )
-  {
-    var prefstring    = prefElements[i].getAttribute( "prefstring" );
-    var prefid        = prefElements[i].getAttribute( "id" );
-    var preftype      = prefElements[i].getAttribute( "preftype" );
-    var prefdefval    = prefElements[i].getAttribute( "prefdefval" );
-    var prefattribute = prefElements[i].getAttribute( "prefattribute" );
-    var elt           = prefElements[i].localName;
+            if (!preftype) {
+                preftype = getPreftype(elt);
+            }
+            if (preftype == "int") {
+                prefdefval = parseInt(prefdefval, 10);
+            }
+            if (!prefattribute) {
+                prefattribute = getPrefattribute(elt);
+            }
 
-    if (!preftype)
-      preftype = getPreftype(elt);
-    if (preftype == "int")
-      prefdefval = parseInt(prefdefval, 10);
-    if (!prefattribute)
-      prefattribute = getPrefattribute(elt);
-
-    var prefvalue;
-    switch (preftype)
-    {
-      case "bool":
-        prefvalue = customPrefs.getBoolPref(prefstring, prefdefval);
-        break;
-      case "int":
-        prefvalue = customPrefs.getIntPref(prefstring, prefdefval);
-        break;
-      default:
-        prefvalue = customPrefs.copyUnicharPref(prefstring, prefdefval);
-        break;
+            var prefvalue;
+            switch (preftype) {
+            case "bool":
+                prefvalue = asbcustom.customPrefs.getBoolPref(prefstring, prefdefval);
+                break;
+            case "int":
+                prefvalue = asbcustom.customPrefs.getIntPref(prefstring, prefdefval);
+                break;
+            default:
+                prefvalue = asbcustom.customPrefs.copyUnicharPref(prefstring, prefdefval);
+                break;
+            }
+            if (elt == "radiogroup") {
+                document.getElementById(prefid).selectedIndex = prefvalue
+            } else {
+                prefElements[i].setAttribute(prefattribute, prefvalue);
+            }
+        }
     }
-    if (elt == "radiogroup")
-      document.getElementById(prefid).selectedIndex = prefvalue
-    else
-      prefElements[i].setAttribute(prefattribute, prefvalue);
-  }
-}
 
+    function savePrefs() {
+        var prefElements = document.getElementsByAttribute("prefstring", "*");
+        for (var i = 0; i < prefElements.length; i++ ) {
+            var prefstring    = prefElements[i].getAttribute( "prefstring" );
+            var prefid        = prefElements[i].getAttribute( "id" );
+            var preftype      = prefElements[i].getAttribute( "preftype" );
+            var prefattribute = prefElements[i].getAttribute( "prefattribute" );
+            var elt           = prefElements[i].localName;
 
-function savePrefs()
-{
-  var prefElements = document.getElementsByAttribute("prefstring", "*");
-  for (var i=0; i<prefElements.length; i++ )  
-  {
-    var prefstring    = prefElements[i].getAttribute( "prefstring" );
-    var prefid        = prefElements[i].getAttribute( "id" );
-    var preftype      = prefElements[i].getAttribute( "preftype" );
-    var prefattribute = prefElements[i].getAttribute( "prefattribute" );
-    var elt           = prefElements[i].localName;
-    
-    if (!preftype)
-      preftype = getPreftype(elt);
-    if (!prefattribute)
-      prefattribute = getPrefattribute(elt);
-    
-    if (elt == "radiogroup")
-      var prefvalue = document.getElementById(prefid).selectedIndex;
-    else if (elt == "textbox")
-      var prefvalue = document.getElementById(prefid).value;
-    else
-      var prefvalue = prefElements[i].getAttribute(prefattribute);
-    
-    if (preftype == "bool")
-      prefvalue = prefvalue == "true" ? true : false;
-    
-    switch (preftype)
-    {
-      case "bool":
-        customPrefs.setBoolPref(prefstring, prefvalue);
-        break;
-      case "int":
-        customPrefs.setIntPref(prefstring, prefvalue);
-        break;
-      default:
-        customPrefs.setUnicharPref(prefstring, prefvalue);
-        break;
+            if (!preftype) {
+                preftype = getPreftype(elt);
+            }
+            if (!prefattribute) {
+                prefattribute = getPrefattribute(elt);
+            }
+
+            if (elt == "radiogroup") {
+                var prefvalue = document.getElementById(prefid).selectedIndex;
+            } else if (elt == "textbox") {
+                var prefvalue = document.getElementById(prefid).value;
+            } else {
+                var prefvalue = prefElements[i].getAttribute(prefattribute);
+            }
+
+            if (preftype == "bool") {
+                prefvalue = prefvalue == "true" ? true : false;
+            }
+
+            switch (preftype) {
+            case "bool":
+                asbcustom.customPrefs.setBoolPref(prefstring, prefvalue);
+                break;
+            case "int":
+                asbcustom.customPrefs.setIntPref(prefstring, prefvalue);
+                break;
+            default:
+                asbcustom.customPrefs.setUnicharPref(prefstring, prefvalue);
+                break;
+            }
+        }
     }
-  }
-}
 
-function getPreftype(elem)
-{
-  var result = "";
-  
-  if (elem == "textbox")
-    result = "string";
-  else if (elem == "checkbox" || elem == "listitem" || elem == "button")
-    result = "bool";
-  else if (elem == "radiogroup" || elem == "menulist")
-    result = "int";
+    function getPreftype(elem) {
+        var result = "";
 
-  return result;
-}
+        if (elem == "textbox") {
+            result = "string";
+        } else if (elem == "checkbox" || elem == "listitem" || elem == "button") {
+            result = "bool";
+        } else if (elem == "radiogroup" || elem == "menulist") {
+            result = "int";
+        }
 
+        return result;
+    }
 
-function getPrefattribute(elem)
-{
-  var result = "";
-  
-  if (elem == "radiogroup")
-    result = "selectedIndex";
-  else if (elem == "textbox" || elem == "menulist")
-    result = "value";
-  else if (elem == "checkbox" || elem == "listitem")
-    result = "checked";
-  else if (elem == "button")
-    result = "disabled";
-    
-  return result;
-}
+    function getPrefattribute(elem) {
+        var result = "";
+
+        if (elem == "radiogroup") {
+            result = "selectedIndex";
+        } else if (elem == "textbox" || elem == "menulist") {
+            result = "value";
+        } else if (elem == "checkbox" || elem == "listitem") {
+            result = "checked";
+        } else if (elem == "button") {
+            result = "disabled";
+        }
+
+        return result;
+    }
+
+    asbcustom.initPrefs = initPrefs;
+    asbcustom.savePrefs = savePrefs;
+}());
