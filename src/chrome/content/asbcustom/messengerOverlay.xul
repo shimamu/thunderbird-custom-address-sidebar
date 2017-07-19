@@ -41,7 +41,6 @@
 
 	<vbox
 		id="folderPaneBox"
-		flex="1"
 		persist="collapsed width height">
 
 		<script
