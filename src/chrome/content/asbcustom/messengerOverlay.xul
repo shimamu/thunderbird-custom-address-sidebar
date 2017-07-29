@@ -227,6 +227,7 @@
 				sortCol="GeneratedName"
 				persist="sortCol"
 				onclick="com.github.shimamu.asbcustom.messengerOverlay.asbContactsListOnClick(event);"
+				ondblclick="AbNewMessage();"
 				onselect="this.view.selectionChanged(); document.commandDispatcher.updateCommands('addrbook-select');"
 				onkeypress="com.github.shimamu.asbcustom.messengerOverlay.contactsListOnKeyPress(event);">
 				<treecols>
