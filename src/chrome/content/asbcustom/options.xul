@@ -2,9 +2,9 @@
 
 <!DOCTYPE dialog [
 	<!ENTITY
-		% abResultsPaneOverlayDTD
-		SYSTEM "chrome://messenger/locale/addressbook/abResultsPaneOverlay.dtd" >
-	%abResultsPaneOverlayDTD;
+		% abResultsPaneDTD
+		SYSTEM "chrome://messenger/locale/addressbook/abResultsPane.dtd" >
+	%abResultsPaneDTD;
 	<!ENTITY
 		% asbcustomOptionDTD
 		SYSTEM "chrome://asbcustom/locale/options.dtd" >

@@ -12,7 +12,7 @@
 				}
 				var val = undefined;
 				try {
-					val = this.orgPrefs.getComplexValue(key, Components.interfaces.nsISupportsString).data;
+					val = this.orgPrefs.getComplexValue(key, Components.interfaces.nsIPrefLocalizedString).data;
 				} catch(e) {
 					console.log(e);
 				}
@@ -26,7 +26,7 @@
 				var str = Components.classes["@mozilla.org/supports-string;1"]
 					.createInstance(Components.interfaces.nsISupportsString);
 				str.data = val;
-				this.orgPrefs.setComplexValue(key, Components.interfaces.nsISupportsString, str);
+				this.orgPrefs.setComplexValue(key, Components.interfaces.nsIPrefLocalizedString, str);
 			},
 			getBoolPref: function(key, defaultVal) {
 				try {

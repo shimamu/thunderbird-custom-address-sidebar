@@ -12,10 +12,10 @@
 
 <!DOCTYPE window [
 	<!ENTITY
-		% abResultsPaneOverlayDTD
+		% abResultsPaneDTD
 		SYSTEM
-		"chrome://messenger/locale/addressbook/abResultsPaneOverlay.dtd" >
-	%abResultsPaneOverlayDTD;
+		"chrome://messenger/locale/addressbook/abResultsPane.dtd" >
+	%abResultsPaneDTD;
 	<!ENTITY
 		% abMainWindowDTD
 		SYSTEM
