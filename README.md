@@ -12,3 +12,5 @@ You can download from [Thunderbird Add-ons](https://addons.mozilla.org/ja/thunde
     npm install
     grunt
 
+## Reference
+- [Sample to access 'Preferences'.](https://developer.mozilla.org/ja/docs/Code_snippets/Preferences)
